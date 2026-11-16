@@ -10,8 +10,8 @@ class WoodSlabTile : HalfSlabTile
 
 	friend class Tile;
 public:
-	static const int TYPE_MASK = 7;
-	static const int TOP_SLOT_BIT = 8;
+	static const int TYPE_MASK = 15;
+	static const int TOP_SLOT_BIT = 16;
 	static const int SLAB_NAMES_LENGTH = 4;
 	static const unsigned int SLAB_NAMES[SLAB_NAMES_LENGTH];
 
