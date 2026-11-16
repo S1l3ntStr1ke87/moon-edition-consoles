@@ -420,7 +420,7 @@ int __cdecl main()
 
 
 	// Initialise the profile manager with the game Title ID, Offer ID, a profile version number, and the number of profile values and settings
-	ProfileManager.Initialise(TITLEID_MINECRAFT,
+	ProfileManager.Initialise(TITLEID_MINECRAFT_MOON_EDITION,
 							app.m_dwOfferID,
 							PROFILE_VERSION_10,
 							NUM_PROFILE_VALUES,

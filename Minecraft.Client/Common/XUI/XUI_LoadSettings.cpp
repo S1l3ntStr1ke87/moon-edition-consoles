@@ -399,7 +399,7 @@ HRESULT CScene_LoadGameSettings::LaunchGame(void)
 			// 4J-PB - Need different text for Survival mode with a level that has been saved in Creative
 			if(m_bGameModeSurvival)
 			{
-				StorageManager.RequestMessageBox(IDS_TITLE_START_GAME, IDS_CONFIRM_START_SAVEDINCREATIVE, uiIDA, 2, m_iPad,&CScene_LoadGameSettings::ConfirmLoadReturned,this,app.GetStringTable());
+				ui.RequestMessageBox(IDS_TITLE_START_GAME, IDS_CONFIRM_START_SAVEDINCREATIVE, uiIDA, 2, m_iPad,&CScene_LoadGameSettings::ConfirmLoadReturned,this,app.GetStringTable());
 			}
 			else // it's creative mode
 			{
@@ -426,7 +426,7 @@ HRESULT CScene_LoadGameSettings::LaunchGame(void)
 							StorageManager.SetSaveDeviceSelected(m_iPad,false);
 							UINT uiIDA[1];
 							uiIDA[0]=IDS_OK;
-							StorageManager.RequestMessageBox(IDS_STORAGEDEVICEPROBLEM_TITLE, IDS_FAILED_TO_LOADSAVE_TEXT, uiIDA, 1, m_iPad,&CScene_LoadGameSettings::DeviceRemovedDialogReturned,this);
+							ui.RequestMessageBox(IDS_STORAGEDEVICEPROBLEM_TITLE, IDS_FAILED_TO_LOADSAVE_TEXT, uiIDA, 1, m_iPad,&CScene_LoadGameSettings::DeviceRemovedDialogReturned,this);
 
 						}
 					}
@@ -434,13 +434,13 @@ HRESULT CScene_LoadGameSettings::LaunchGame(void)
 				else
 				{
 					// ask if they're sure they want to turn this into a creative map
-					StorageManager.RequestMessageBox(IDS_TITLE_START_GAME, IDS_CONFIRM_START_CREATIVE, uiIDA, 2, m_iPad,&CScene_LoadGameSettings::ConfirmLoadReturned,this,app.GetStringTable());
+					ui.RequestMessageBox(IDS_TITLE_START_GAME, IDS_CONFIRM_START_CREATIVE, uiIDA, 2, m_iPad,&CScene_LoadGameSettings::ConfirmLoadReturned,this,app.GetStringTable());
 				}
 			}
 		}
 		else
 		{
-			StorageManager.RequestMessageBox(IDS_TITLE_START_GAME, IDS_CONFIRM_START_HOST_PRIVILEGES, uiIDA, 2, m_iPad,&CScene_LoadGameSettings::ConfirmLoadReturned,this,app.GetStringTable());
+			ui.RequestMessageBox(IDS_TITLE_START_GAME, IDS_CONFIRM_START_HOST_PRIVILEGES, uiIDA, 2, m_iPad,&CScene_LoadGameSettings::ConfirmLoadReturned,this,app.GetStringTable());
 		}
 	}
 	else
@@ -460,7 +460,7 @@ HRESULT CScene_LoadGameSettings::LaunchGame(void)
 				StorageManager.SetSaveDeviceSelected(m_iPad,false);
 				UINT uiIDA[1];
 				uiIDA[0]=IDS_OK;
-				StorageManager.RequestMessageBox(IDS_STORAGEDEVICEPROBLEM_TITLE, IDS_FAILED_TO_LOADSAVE_TEXT, uiIDA, 1, m_iPad,&CScene_LoadGameSettings::DeviceRemovedDialogReturned,this);
+				ui.RequestMessageBox(IDS_STORAGEDEVICEPROBLEM_TITLE, IDS_FAILED_TO_LOADSAVE_TEXT, uiIDA, 1, m_iPad,&CScene_LoadGameSettings::DeviceRemovedDialogReturned,this);
 			}
 		}
 	}
@@ -534,14 +534,14 @@ HRESULT CScene_LoadGameSettings::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyP
 						uiIDA[1]=IDS_TEXTURE_PACK_TRIALVERSION;
 						uiIDA[2]=IDS_CONFIRM_CANCEL;
 						// Give the player a warning about the texture pack missing
-						StorageManager.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 3, ProfileManager.GetPrimaryPad(),&CScene_LoadGameSettings::TexturePackDialogReturned,this,app.GetStringTable());
+						ui.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 3, ProfileManager.GetPrimaryPad(),&CScene_LoadGameSettings::TexturePackDialogReturned,this,app.GetStringTable());
 					}
 					else
 					{
 						uiIDA[0]=IDS_TEXTUREPACK_FULLVERSION;
 						uiIDA[1]=IDS_CONFIRM_CANCEL;
 						// Give the player a warning about the texture pack missing
-						StorageManager.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 2, ProfileManager.GetPrimaryPad(),&CScene_LoadGameSettings::TexturePackDialogReturned,this,app.GetStringTable());
+						ui.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 2, ProfileManager.GetPrimaryPad(),&CScene_LoadGameSettings::TexturePackDialogReturned,this,app.GetStringTable());
 					}
 
 					return S_OK;
@@ -590,7 +590,7 @@ HRESULT CScene_LoadGameSettings::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyP
 					if(!ProfileManager.IsSignedInLive(pNotifyPressData->UserIndex))
 					{
 						// need to be signed in to live
-						StorageManager.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
+						ui.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
 						return S_OK;
 					}
 					else
@@ -617,7 +617,7 @@ HRESULT CScene_LoadGameSettings::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyP
 						uiIDA[1]=IDS_CONFIRM_CANCEL;
 
 						//StorageManager.RequestMessageBox(IDS_UNLOCK_DLC_TITLE, IDS_UNLOCK_DLC_SKIN, uiIDA, 2, pInputData->UserIndex,&CScene_SkinSelect::UnlockSkinReturned,this,app.GetStringTable());
-						StorageManager.RequestMessageBox(IDS_UNLOCK_DLC_TEXTUREPACK_TITLE, IDS_UNLOCK_DLC_TEXTUREPACK_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_LoadGameSettings::UnlockTexturePackReturned,this,app.GetStringTable());
+						ui.RequestMessageBox(IDS_UNLOCK_DLC_TEXTUREPACK_TITLE, IDS_UNLOCK_DLC_TEXTUREPACK_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_LoadGameSettings::UnlockTexturePackReturned,this,app.GetStringTable());
 						return S_OK;
 					}
 				}		
@@ -634,7 +634,7 @@ HRESULT CScene_LoadGameSettings::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyP
 			uiIDA[0]=IDS_DONT_RESET_NETHER;
 			uiIDA[1]=IDS_RESET_NETHER;
 
-			StorageManager.RequestMessageBox(IDS_RESETNETHER_TITLE, IDS_RESETNETHER_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_LoadGameSettings::CheckResetNetherReturned,this,app.GetStringTable());
+			ui.RequestMessageBox(IDS_RESETNETHER_TITLE, IDS_RESETNETHER_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_LoadGameSettings::CheckResetNetherReturned,this,app.GetStringTable());
 		}
 		else
 		{
@@ -722,7 +722,7 @@ int CScene_LoadGameSettings::ConfirmLoadReturned(void *pParam,int iPad,C4JStorag
 				StorageManager.SetSaveDeviceSelected(pClass->m_iPad,false);
 				UINT uiIDA[1];
 				uiIDA[0]=IDS_OK;
-				StorageManager.RequestMessageBox(IDS_STORAGEDEVICEPROBLEM_TITLE, IDS_FAILED_TO_LOADSAVE_TEXT, uiIDA, 1, pClass->m_iPad,&CScene_LoadGameSettings::DeviceRemovedDialogReturned,pClass);
+				ui.RequestMessageBox(IDS_STORAGEDEVICEPROBLEM_TITLE, IDS_FAILED_TO_LOADSAVE_TEXT, uiIDA, 1, pClass->m_iPad,&CScene_LoadGameSettings::DeviceRemovedDialogReturned,pClass);
 			}		
 		}
 	}
@@ -868,7 +868,7 @@ int CScene_LoadGameSettings::LoadSaveDataReturned(void *pParam,bool bContinue)
 				pClass->m_bIgnoreInput=false;
 				UINT uiIDA[1];
 				uiIDA[0]=IDS_CONFIRM_OK;
-				StorageManager.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
+				ui.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
 			}
 			else
 			{
@@ -894,7 +894,7 @@ int CScene_LoadGameSettings::LoadSaveDataReturned(void *pParam,bool bContinue)
 		UINT uiIDA[2];
 		uiIDA[0]=IDS_CONFIRM_CANCEL;
 		uiIDA[1]=IDS_CONFIRM_OK;
-		StorageManager.RequestMessageBox(IDS_CORRUPT_OR_DAMAGED_SAVE_TITLE, IDS_CORRUPT_OR_DAMAGED_SAVE_TEXT, uiIDA, 2, 
+		ui.RequestMessageBox(IDS_CORRUPT_OR_DAMAGED_SAVE_TITLE, IDS_CORRUPT_OR_DAMAGED_SAVE_TEXT, uiIDA, 2, 
 			pClass->m_iPad,&CScene_LoadGameSettings::DeleteSaveDialogReturned,pClass, app.GetStringTable());
 
 	}
@@ -1036,7 +1036,7 @@ int CScene_LoadGameSettings::StartGame_SignInReturned(void *pParam,bool bContinu
 					//pClass->m_bAbortSearch=false;
 					UINT uiIDA[1];
 					uiIDA[0]=IDS_CONFIRM_OK;
-					StorageManager.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
+					ui.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
 				}
 				else
 				{
@@ -1045,7 +1045,7 @@ int CScene_LoadGameSettings::StartGame_SignInReturned(void *pParam,bool bContinu
 					//pClass->m_bAbortSearch=false;
 					UINT uiIDA[1];
 					uiIDA[0]=IDS_CONFIRM_OK;
-					StorageManager.RequestMessageBox( IDS_NO_MULTIPLAYER_PRIVILEGE_TITLE, IDS_NO_MULTIPLAYER_PRIVILEGE_HOST_TEXT, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
+					ui.RequestMessageBox( IDS_NO_MULTIPLAYER_PRIVILEGE_TITLE, IDS_NO_MULTIPLAYER_PRIVILEGE_HOST_TEXT, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
 				}
 			}
 			else
@@ -1349,14 +1349,14 @@ void CScene_LoadGameSettings::UpdateCurrentTexturePack()
 			uiIDA[1]=IDS_TEXTURE_PACK_TRIALVERSION;
 			uiIDA[2]=IDS_CONFIRM_CANCEL;
 			// Give the player a warning about the texture pack missing
-			StorageManager.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 3, ProfileManager.GetPrimaryPad(),&CScene_LoadGameSettings::TexturePackDialogReturned,this,app.GetStringTable());
+			ui.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 3, ProfileManager.GetPrimaryPad(),&CScene_LoadGameSettings::TexturePackDialogReturned,this,app.GetStringTable());
 		}
 		else
 		{
 			uiIDA[0]=IDS_TEXTUREPACK_FULLVERSION;
 			uiIDA[1]=IDS_CONFIRM_CANCEL;
 			// Give the player a warning about the texture pack missing
-			StorageManager.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 2, ProfileManager.GetPrimaryPad(),&CScene_LoadGameSettings::TexturePackDialogReturned,this,app.GetStringTable());
+			ui.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 2, ProfileManager.GetPrimaryPad(),&CScene_LoadGameSettings::TexturePackDialogReturned,this,app.GetStringTable());
 		}
 
 		// do set the texture pack id, and on the user pressing create world, check they have it	
@@ -1416,7 +1416,7 @@ void CScene_LoadGameSettings::LoadLevelGen(LevelGenerationOptions *levelGen)
 			m_bIgnoreInput=false;
 			UINT uiIDA[1];
 			uiIDA[0]=IDS_CONFIRM_OK;
-			StorageManager.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
+			ui.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
 			return;
 		}
 	}

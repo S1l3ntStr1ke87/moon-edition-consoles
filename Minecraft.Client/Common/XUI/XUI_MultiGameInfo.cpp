@@ -302,7 +302,7 @@ void CScene_MultiGameInfo::JoinGame(CScene_MultiGameInfo* pClass)
 		int messageText = IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_SINGLE_LOCAL;
 		if(dwSignedInUsers > 1) messageText = IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_ALL_LOCAL;
 
-		StorageManager.RequestMessageBox( IDS_CONNECTION_FAILED, messageText, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
+		ui.RequestMessageBox( IDS_CONNECTION_FAILED, messageText, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
 	
 	}
 	else if(noPrivileges)
@@ -311,7 +311,7 @@ void CScene_MultiGameInfo::JoinGame(CScene_MultiGameInfo* pClass)
 		pClass->m_bIgnoreInput=false;
 		UINT uiIDA[1];
 		uiIDA[0]=IDS_CONFIRM_OK;
-		StorageManager.RequestMessageBox( IDS_NO_MULTIPLAYER_PRIVILEGE_TITLE, IDS_NO_MULTIPLAYER_PRIVILEGE_JOIN_TEXT, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
+		ui.RequestMessageBox( IDS_NO_MULTIPLAYER_PRIVILEGE_TITLE, IDS_NO_MULTIPLAYER_PRIVILEGE_JOIN_TEXT, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
 	}
 	else
 	{
@@ -338,7 +338,7 @@ void CScene_MultiGameInfo::JoinGame(CScene_MultiGameInfo* pClass)
 			{
 				UINT uiIDA[1];
 				uiIDA[0]=IDS_CONFIRM_OK;
-				StorageManager.RequestMessageBox( IDS_CONNECTION_FAILED, exitReasonStringId, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
+				ui.RequestMessageBox( IDS_CONNECTION_FAILED, exitReasonStringId, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
 				exitReasonStringId = -1;
 
 				app.NavigateToHomeMenu();

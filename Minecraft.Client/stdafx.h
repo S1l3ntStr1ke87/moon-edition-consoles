@@ -101,6 +101,7 @@ using namespace DirectX;
 #include <xuiapp.h>
 #include <xact3.h>
 #include <xact3d3.h>
+#include <stdint.h>
 typedef XINVITE_INFO INVITE_INFO;
 typedef XUID PlayerUID;
 typedef XNKID SessionID;

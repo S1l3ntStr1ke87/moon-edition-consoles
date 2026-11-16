@@ -1,4 +1,5 @@
 #pragma once
+#include "4J_Storage.h"
 
 #define	MAP_STYLE_0		0
 #define	MAP_STYLE_1		1
@@ -65,7 +66,8 @@ public:
 		EKeyboardMode_Full,
 		EKeyboardMode_Alphabet_Extended,
 		EKeyboardMode_IP_Address,
-		EKeyboardMode_Phone
+		EKeyboardMode_Phone,
+		EKeyboardMode_Email
 	};
 
 	void				Initialise( int iInputStateC, unsigned char ucMapC,unsigned char ucActionC, unsigned char ucMenuActionC );
@@ -98,8 +100,14 @@ public:
 
 	void				SetMenuDisplayed(int iPad, bool bVal);
 
-	EKeyboardResult		RequestKeyboard(UINT uiTitle, UINT uiText, UINT uiDesc, DWORD dwPad, WCHAR *pwchResult, UINT uiResultSize,int( *Func)(LPVOID,const bool),LPVOID lpParam,EKeyboardMode eMode,CXuiStringTable *pStringTable=NULL);
-	EKeyboardResult		RequestKeyboard(UINT uiTitle, LPCWSTR pwchDefault, UINT uiDesc, DWORD dwPad, WCHAR *pwchResult, UINT uiResultSize,int( *Func)(LPVOID,const bool),LPVOID lpParam, EKeyboardMode eMode,CXuiStringTable *pStringTable=NULL);
+	//str1k3r - dont ask.
+	EKeyboardResult		RequestKeyboard(LPCWSTR uiTitle, LPCWSTR uiText, DWORD dwPad, WCHAR *pwchResult, UINT uiMaxChars, int(*Func)(LPVOID, const bool), LPVOID lpParam, EKeyboardMode eMode);
+	EKeyboardResult		RequestKeyboard(LPCWSTR uiTitle, LPCWSTR pwchDefault, LPCWSTR uiDesc, DWORD dwPad, WCHAR *pwchResult, UINT uiMaxChars, int(*Func)(LPVOID, const bool), LPVOID lpParam, EKeyboardMode eMode);
+	C4JStorage::EMessageResult RequestMessageBox(LPCWSTR uiTitle, LPCWSTR uiText, LPCWSTR *uiButtons, UINT uiButtonCount, DWORD dwPad, int(*Func)(LPVOID, int, const C4JStorage::EMessageResult), LPVOID lpParam, DWORD dwFocusButton);
+	EKeyboardResult		RequestKeyboard(LPCWSTR uiTitle, LPCWSTR uiText, DWORD dwPad, UINT uiMaxChars, int(*Func)(LPVOID, const bool), LPVOID lpParam, EKeyboardMode eMode);
+
+	void				DestroyKeyboard();
+	void				GetText(uint16_t *UTF16String);
 
 	// Online check strings against offensive list - TCR 92
 	// 	TCR # 092  CMTV Player Text String Verification 

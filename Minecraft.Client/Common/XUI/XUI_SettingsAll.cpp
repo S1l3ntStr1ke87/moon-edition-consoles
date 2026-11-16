@@ -169,7 +169,7 @@ HRESULT CScene_SettingsAll::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress*
 			uiIDA[0]=IDS_CONFIRM_CANCEL;
 			uiIDA[1]=IDS_CONFIRM_OK;
 
-			StorageManager.RequestMessageBox(IDS_DEFAULTS_TITLE, IDS_DEFAULTS_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_SettingsAll::ResetDefaultsDialogReturned,this, app.GetStringTable());
+			ui.RequestMessageBox(IDS_DEFAULTS_TITLE, IDS_DEFAULTS_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_SettingsAll::ResetDefaultsDialogReturned,this, app.GetStringTable());
 		}		
 	break;
 

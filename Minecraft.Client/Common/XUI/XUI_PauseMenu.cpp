@@ -230,11 +230,11 @@ HRESULT UIScene_PauseMenu::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* 
 			// guests can't look at leaderboards
 			if(ProfileManager.IsGuest(pNotifyPressData->UserIndex))
 			{
-				StorageManager.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
+				ui.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
 			}
 			else if(!ProfileManager.IsSignedInLive(pNotifyPressData->UserIndex))
 			{
-				StorageManager.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
+				ui.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
 			}
 			else
 			{	
@@ -248,7 +248,7 @@ HRESULT UIScene_PauseMenu::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* 
 		{
 			UINT uiIDA[1];
 			uiIDA[0]=IDS_OK;
-			StorageManager.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
+			ui.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
 		}
 		else
 		{
@@ -294,7 +294,7 @@ HRESULT UIScene_PauseMenu::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* 
 					uiIDA[1]=IDS_CONFIRM_CANCEL;
 
 					// Give the player a warning about the trial version of the texture pack
-					StorageManager.RequestMessageBox(IDS_WARNING_DLC_TRIALTEXTUREPACK_TITLE, IDS_WARNING_DLC_TRIALTEXTUREPACK_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::WarningTrialTexturePackReturned,this,app.GetStringTable());
+					ui.RequestMessageBox(IDS_WARNING_DLC_TRIALTEXTUREPACK_TITLE, IDS_WARNING_DLC_TRIALTEXTUREPACK_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::WarningTrialTexturePackReturned,this,app.GetStringTable());
 
 					return S_OK;					
 				}
@@ -311,7 +311,7 @@ HRESULT UIScene_PauseMenu::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* 
 				uiIDA[0]=IDS_SELECTANEWDEVICE;
 				uiIDA[1]=IDS_NODEVICE_DECLINE;
 
-				StorageManager.RequestMessageBox(IDS_STORAGEDEVICEPROBLEM_TITLE, IDS_FAILED_TO_LOADSAVE_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::DeviceRemovedDialogReturned,this);
+				ui.RequestMessageBox(IDS_STORAGEDEVICEPROBLEM_TITLE, IDS_FAILED_TO_LOADSAVE_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::DeviceRemovedDialogReturned,this);
 			}
 			else
 			{
@@ -321,7 +321,7 @@ HRESULT UIScene_PauseMenu::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* 
 					UINT uiIDA[2];
 					uiIDA[0]=IDS_CONFIRM_CANCEL;
 					uiIDA[1]=IDS_CONFIRM_OK;
-					StorageManager.RequestMessageBox(IDS_TITLE_SAVE_GAME, IDS_CONFIRM_SAVE_GAME, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::SaveGameDialogReturned,this, app.GetStringTable());
+					ui.RequestMessageBox(IDS_TITLE_SAVE_GAME, IDS_CONFIRM_SAVE_GAME, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::SaveGameDialogReturned,this, app.GetStringTable());
 				}
 				else
 				{
@@ -352,7 +352,7 @@ HRESULT UIScene_PauseMenu::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* 
 					{
 						uiIDA[0]=IDS_CONFIRM_CANCEL;
 						uiIDA[1]=IDS_CONFIRM_OK;
-						StorageManager.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME_PROGRESS_LOST, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameDialogReturned,this, app.GetStringTable());
+						ui.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME_PROGRESS_LOST, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameDialogReturned,this, app.GetStringTable());
 					}
 					else
 					{
@@ -364,11 +364,11 @@ HRESULT UIScene_PauseMenu::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* 
 
 							if(g_NetworkManager.GetPlayerCount()>1)
 							{
-								StorageManager.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME_CONFIRM_DISCONNECT_SAVE, uiIDA, 3, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameSaveDialogReturned,this, app.GetStringTable());
+								ui.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME_CONFIRM_DISCONNECT_SAVE, uiIDA, 3, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameSaveDialogReturned,this, app.GetStringTable());
 							}
 							else
 							{
-								StorageManager.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME, uiIDA, 3, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameSaveDialogReturned,this, app.GetStringTable());
+								ui.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME, uiIDA, 3, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameSaveDialogReturned,this, app.GetStringTable());
 							}
 						}
 						else
@@ -376,7 +376,7 @@ HRESULT UIScene_PauseMenu::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* 
 							uiIDA[0]=IDS_CONFIRM_CANCEL;
 							uiIDA[1]=IDS_CONFIRM_OK;
 
-							StorageManager.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameDialogReturned,this, app.GetStringTable());
+							ui.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameDialogReturned,this, app.GetStringTable());
 						}
 					}
 				}
@@ -413,7 +413,7 @@ HRESULT UIScene_PauseMenu::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* 
 					UINT uiIDA[2];
 					uiIDA[0]=IDS_CONFIRM_CANCEL;
 					uiIDA[1]=IDS_CONFIRM_OK;
-					StorageManager.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME_PROGRESS_LOST, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameDialogReturned,this, app.GetStringTable());
+					ui.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME_PROGRESS_LOST, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameDialogReturned,this, app.GetStringTable());
 				}
 				else
 				{
@@ -521,7 +521,7 @@ HRESULT UIScene_PauseMenu::OnKeyDown(XUIMessageInput* pInputData, BOOL& rfHandle
 			UINT uiIDA[2];
 			uiIDA[0]=IDS_CONFIRM_CANCEL;
 			uiIDA[1]=IDS_CONFIRM_OK;
-			StorageManager.RequestMessageBox(IDS_ACTION_BAN_LEVEL_TITLE, IDS_ACTION_BAN_LEVEL_DESCRIPTION, uiIDA, 2, pInputData->UserIndex,&UIScene_PauseMenu::BanGameDialogReturned,this, app.GetStringTable());
+			ui.RequestMessageBox(IDS_ACTION_BAN_LEVEL_TITLE, IDS_ACTION_BAN_LEVEL_DESCRIPTION, uiIDA, 2, pInputData->UserIndex,&UIScene_PauseMenu::BanGameDialogReturned,this, app.GetStringTable());
 
 			rfHandled = TRUE;
 		}

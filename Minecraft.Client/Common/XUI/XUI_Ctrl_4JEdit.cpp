@@ -53,8 +53,8 @@ HRESULT CXuiCtrl4JEdit::SetTitleAndText(unsigned int uiTitle, unsigned int uiTex
 	HRESULT hr = XuiObjectFromHandle(m_hObj, (void **) &pThis);
 	if (FAILED(hr))
 		return hr;
-	pThis->m_uiTitle=uiTitle;
-	pThis->m_uiText=uiText;
+	pThis->m_uiTitle=app.GetString(uiTitle);
+	pThis->m_uiText= app.GetString(uiText);
 
 	return S_OK;
 }
@@ -159,7 +159,7 @@ HRESULT CXuiCtrl4JEdit::OnKeyDown(XUIMessageInput* pInputData, BOOL& rfHandled)
 
 void CXuiCtrl4JEdit::RequestKeyboard(int iPad)
 {
-	InputManager.RequestKeyboard(m_uiTitle,GetText(),m_uiText,iPad,wchText,m_uTextLimit+1,&CXuiCtrl4JEdit::KeyboardReturned,this,m_eKeyboardMode,app.GetStringTable());
+	InputManager.RequestKeyboard(m_uiTitle, GetText(), m_uiText, iPad, wchText, m_uTextLimit + 1, &CXuiCtrl4JEdit::KeyboardReturned, this, m_eKeyboardMode);
 }
 
 

@@ -316,19 +316,27 @@ void ConsoleUIController::SetWinUserIndex(unsigned int iPad)
 C4JStorage::EMessageResult ConsoleUIController::RequestMessageBox(UINT uiTitle, UINT uiText, UINT *uiOptionA,UINT uiOptionC, DWORD dwPad,
 						int( *Func)(LPVOID,int,const C4JStorage::EMessageResult),LPVOID lpParam, CXuiStringTable *pStringTable, WCHAR *pwchFormatString,DWORD dwFocusButton,bool bIsError)
 {
-	return StorageManager.RequestMessageBox(uiTitle, uiText, uiOptionA, uiOptionC, dwPad, Func, lpParam, pStringTable, pwchFormatString, dwFocusButton);
+	int i = 0;
+	LPCWSTR buttons[3] = { nullptr, nullptr, nullptr };
+	
+	while (i < uiOptionC && i < 3) {
+		buttons[i] = app.GetString((int)uiOptionA[i]);
+		i++;
+	}
+	
+	return InputManager.RequestMessageBox(app.GetString(uiTitle), app.GetString(uiText), buttons, i, dwPad, Func, lpParam, 0);
 }
 
 C4JStorage::EMessageResult ConsoleUIController::RequestErrorMessage(UINT uiTitle, UINT uiText, UINT *uiOptionA,UINT uiOptionC, DWORD dwPad,
 						int( *Func)(LPVOID,int,const C4JStorage::EMessageResult),LPVOID lpParam, WCHAR *pwchFormatString)
 {
-	return StorageManager.RequestMessageBox(uiTitle, uiText, uiOptionA, uiOptionC, dwPad, Func, lpParam, NULL, pwchFormatString, 0);
+	return ui.RequestMessageBox(uiTitle, uiText, uiOptionA, uiOptionC, dwPad, Func, lpParam, NULL, pwchFormatString, 0);
 }
 
 C4JStorage::EMessageResult ConsoleUIController::RequestAlertMessage(UINT uiTitle, UINT uiText, UINT *uiOptionA,UINT uiOptionC, DWORD dwPad,
 						int( *Func)(LPVOID,int,const C4JStorage::EMessageResult),LPVOID lpParam, WCHAR *pwchFormatString)
 {
-	return StorageManager.RequestMessageBox(uiTitle, uiText, uiOptionA, uiOptionC, dwPad, Func, lpParam, NULL, pwchFormatString, 0);
+	return ui.RequestMessageBox(uiTitle, uiText, uiOptionA, uiOptionC, dwPad, Func, lpParam, NULL, pwchFormatString, 0);
 }
 
 C4JStorage::EMessageResult ConsoleUIController::RequestUGCMessageBox(UINT title/* = -1 */, UINT message/* = -1 */, int iPad/* = -1*/, int( *Func)(LPVOID,int,const C4JStorage::EMessageResult)/* = NULL*/, LPVOID lpParam/* = NULL*/)

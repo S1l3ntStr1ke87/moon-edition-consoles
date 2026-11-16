@@ -352,14 +352,14 @@ HRESULT CScene_MultiGameCreate::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPr
 						uiIDA[1]=IDS_TEXTURE_PACK_TRIALVERSION;
 						uiIDA[2]=IDS_CONFIRM_CANCEL;
 						// Give the player a warning about the texture pack missing
-						StorageManager.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 3, ProfileManager.GetPrimaryPad(),&CScene_MultiGameCreate::TexturePackDialogReturned,this,app.GetStringTable());
+						ui.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 3, ProfileManager.GetPrimaryPad(),&CScene_MultiGameCreate::TexturePackDialogReturned,this,app.GetStringTable());
 					}
 					else
 					{
 						uiIDA[0]=IDS_TEXTUREPACK_FULLVERSION;
 						uiIDA[1]=IDS_CONFIRM_CANCEL;
 						// Give the player a warning about the texture pack missing
-						StorageManager.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 2, ProfileManager.GetPrimaryPad(),&CScene_MultiGameCreate::TexturePackDialogReturned,this,app.GetStringTable());
+						ui.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 2, ProfileManager.GetPrimaryPad(),&CScene_MultiGameCreate::TexturePackDialogReturned,this,app.GetStringTable());
 					}
 
 					return S_OK;
@@ -409,7 +409,7 @@ HRESULT CScene_MultiGameCreate::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPr
 					if(!ProfileManager.IsSignedInLive(pNotifyPressData->UserIndex))
 					{
 						// need to be signed in to live
-						StorageManager.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
+						ui.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
 						return S_OK;
 					}
 					else
@@ -435,7 +435,7 @@ HRESULT CScene_MultiGameCreate::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPr
 						uiIDA[0]=IDS_CONFIRM_OK;
 
 						// Give the player a warning about the trial version of the texture pack
-						StorageManager.RequestMessageBox(IDS_WARNING_DLC_TRIALTEXTUREPACK_TITLE, IDS_WARNING_DLC_TRIALTEXTUREPACK_TEXT, uiIDA, 1, pNotifyPressData->UserIndex,&CScene_MultiGameCreate::WarningTrialTexturePackReturned,this,app.GetStringTable());
+						ui.RequestMessageBox(IDS_WARNING_DLC_TRIALTEXTUREPACK_TITLE, IDS_WARNING_DLC_TRIALTEXTUREPACK_TEXT, uiIDA, 1, pNotifyPressData->UserIndex,&CScene_MultiGameCreate::WarningTrialTexturePackReturned,this,app.GetStringTable());
 						return S_OK;
 					}
 				}
@@ -449,11 +449,11 @@ HRESULT CScene_MultiGameCreate::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPr
 			uiIDA[1]=IDS_CONFIRM_CANCEL;
 			if(m_bGameModeSurvival != true)
 			{
-				StorageManager.RequestMessageBox(IDS_TITLE_START_GAME, IDS_CONFIRM_START_CREATIVE, uiIDA, 2, m_iPad,&CScene_MultiGameCreate::ConfirmCreateReturned,this,app.GetStringTable());
+				ui.RequestMessageBox(IDS_TITLE_START_GAME, IDS_CONFIRM_START_CREATIVE, uiIDA, 2, m_iPad,&CScene_MultiGameCreate::ConfirmCreateReturned,this,app.GetStringTable());
 			}
 			else
 			{
-				StorageManager.RequestMessageBox(IDS_TITLE_START_GAME, IDS_CONFIRM_START_HOST_PRIVILEGES, uiIDA, 2, m_iPad,&CScene_MultiGameCreate::ConfirmCreateReturned,this,app.GetStringTable());
+				ui.RequestMessageBox(IDS_TITLE_START_GAME, IDS_CONFIRM_START_HOST_PRIVILEGES, uiIDA, 2, m_iPad,&CScene_MultiGameCreate::ConfirmCreateReturned,this,app.GetStringTable());
 			}
 		}
 		else
@@ -485,7 +485,7 @@ HRESULT CScene_MultiGameCreate::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPr
 					SetShow( TRUE );
 					UINT uiIDA[1];
 					uiIDA[0]=IDS_CONFIRM_OK;
-					StorageManager.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
+					ui.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
 				}
 				else
 				{
@@ -588,7 +588,7 @@ int CScene_MultiGameCreate::WarningTrialTexturePackReturned(void *pParam,int iPa
 		{
 			UINT uiIDA[1];
 			uiIDA[0]=IDS_CONFIRM_OK;
-			StorageManager.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
+			ui.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
 		}
 		else
 		{
@@ -787,7 +787,7 @@ int CScene_MultiGameCreate::ConfirmCreateReturned(void *pParam,int iPad,C4JStora
 				pClass->SetShow( TRUE );
 				UINT uiIDA[1];
 				uiIDA[0]=IDS_CONFIRM_OK;
-				StorageManager.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
+				ui.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
 			}
 			else
 			{
@@ -844,7 +844,7 @@ int CScene_MultiGameCreate::StartGame_SignInReturned(void *pParam,bool bContinue
 					pClass->SetShow( TRUE );
 					UINT uiIDA[1];
 					uiIDA[0]=IDS_CONFIRM_OK;
-					StorageManager.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
+					ui.RequestMessageBox( IDS_FAILED_TO_CREATE_GAME_TITLE, IDS_NO_USER_CREATED_CONTENT_PRIVILEGE_CREATE, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
 				}
 				else
 				{
@@ -852,7 +852,7 @@ int CScene_MultiGameCreate::StartGame_SignInReturned(void *pParam,bool bContinue
 					pClass->SetShow( TRUE );
 					UINT uiIDA[1];
 					uiIDA[0]=IDS_CONFIRM_OK;
-					StorageManager.RequestMessageBox( IDS_NO_MULTIPLAYER_PRIVILEGE_TITLE, IDS_NO_MULTIPLAYER_PRIVILEGE_HOST_TEXT, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
+					ui.RequestMessageBox( IDS_NO_MULTIPLAYER_PRIVILEGE_TITLE, IDS_NO_MULTIPLAYER_PRIVILEGE_HOST_TEXT, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
 				}
 			}
 			else
@@ -1195,14 +1195,14 @@ void CScene_MultiGameCreate::UpdateCurrentTexturePack()
 			uiIDA[1]=IDS_TEXTURE_PACK_TRIALVERSION;
 			uiIDA[2]=IDS_CONFIRM_CANCEL;
 			// Give the player a warning about the texture pack missing
-			StorageManager.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 3, ProfileManager.GetPrimaryPad(),&CScene_MultiGameCreate::TexturePackDialogReturned,this,app.GetStringTable());
+			ui.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 3, ProfileManager.GetPrimaryPad(),&CScene_MultiGameCreate::TexturePackDialogReturned,this,app.GetStringTable());
 		}
 		else
 		{
 			uiIDA[0]=IDS_TEXTUREPACK_FULLVERSION;
 			uiIDA[1]=IDS_CONFIRM_CANCEL;
 			// Give the player a warning about the texture pack missing
-			StorageManager.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 2, ProfileManager.GetPrimaryPad(),&CScene_MultiGameCreate::TexturePackDialogReturned,this,app.GetStringTable());
+			ui.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 2, ProfileManager.GetPrimaryPad(),&CScene_MultiGameCreate::TexturePackDialogReturned,this,app.GetStringTable());
 		}
 
 		// do set the texture pack id, and on the user pressing create world, check they have it	

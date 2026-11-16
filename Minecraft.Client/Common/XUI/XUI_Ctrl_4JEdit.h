@@ -34,7 +34,7 @@ public:
 protected:
 	bool m_bReadOnly;
 	C_4JInput::EKeyboardMode m_eKeyboardMode;
-	unsigned int m_uiTitle,m_uiText;
+	LPCWSTR m_uiTitle,m_uiText;
 
 private:    
 	static int KeyboardReturned(void *pParam,bool bSet);

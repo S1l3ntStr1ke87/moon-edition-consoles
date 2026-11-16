@@ -652,6 +652,6 @@ void StatsCounter::WipeLeaderboards() {}
 #endif
 */
 
-#ifdef __PS3__
+#ifndef _WINDOWS64
 bool				C_4JProfile::IsFullVersion() { return true; }
 #endif

@@ -1205,7 +1205,7 @@ void CPlatformNetworkManagerXbox::SearchForGames()
 				if( 
 					( (partyUserList.Users[i].dwFlags & XPARTY_USER_ISLOCAL ) !=  XPARTY_USER_ISLOCAL ) &&
 					( (partyUserList.Users[i].dwFlags & XPARTY_USER_ISINGAMESESSION) ==  XPARTY_USER_ISINGAMESESSION ) &&
-					partyUserList.Users[i].dwTitleId == TITLEID_MINECRAFT
+					partyUserList.Users[i].dwTitleId == TITLEID_MINECRAFT_MOON_EDITION
 					)
 				{
 					bool sessionAlreadyAdded = false;
@@ -1263,7 +1263,7 @@ void CPlatformNetworkManagerXbox::SearchForGames()
 				( (friends[i].dwFriendState & XONLINE_FRIENDSTATE_FLAG_JOINABLE) == XONLINE_FRIENDSTATE_FLAG_JOINABLE ||
 				(friends[i].dwFriendState & XONLINE_FRIENDSTATE_FLAG_JOINABLE_FRIENDS_ONLY) == XONLINE_FRIENDSTATE_FLAG_JOINABLE_FRIENDS_ONLY)
 				&& ( friends[i].dwFriendState & ( XONLINE_FRIENDSTATE_FLAG_SENTREQUEST | XONLINE_FRIENDSTATE_FLAG_RECEIVEDREQUEST ) ) == 0
-				&& friends[i].dwTitleID == TITLEID_MINECRAFT)
+				&& friends[i].dwTitleID == TITLEID_MINECRAFT_MOON_EDITION)
 			{
 				//printf("Valid game to join\n");
 

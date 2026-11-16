@@ -306,7 +306,7 @@ HRESULT CScene_InGamePlayerOptions::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINoti
 		uiIDA[0]=IDS_CONFIRM_OK;
 		uiIDA[1]=IDS_CONFIRM_CANCEL;
 
-		StorageManager.RequestMessageBox(IDS_UNLOCK_KICK_PLAYER_TITLE, IDS_UNLOCK_KICK_PLAYER, uiIDA, 2, m_iPad,&CScene_InGamePlayerOptions::KickPlayerReturned,smallId,app.GetStringTable());
+		ui.RequestMessageBox(IDS_UNLOCK_KICK_PLAYER_TITLE, IDS_UNLOCK_KICK_PLAYER, uiIDA, 2, m_iPad,&CScene_InGamePlayerOptions::KickPlayerReturned,smallId,app.GetStringTable());
 	}
 	else if (hObjPressed == m_checkboxes[eControl_Op] )
 	{

@@ -115,7 +115,7 @@ HRESULT CScene_Death::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* pNoti
 					{
 						uiIDA[0]=IDS_CONFIRM_CANCEL;
 						uiIDA[1]=IDS_CONFIRM_OK;
-						StorageManager.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME_PROGRESS_LOST, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameDialogReturned,this, app.GetStringTable());
+						ui.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME_PROGRESS_LOST, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameDialogReturned,this, app.GetStringTable());
 					}
 					else
 					{
@@ -125,14 +125,14 @@ HRESULT CScene_Death::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* pNoti
 							uiIDA[1]=IDS_EXIT_GAME_SAVE;
 							uiIDA[2]=IDS_EXIT_GAME_NO_SAVE;
 
-							StorageManager.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME, uiIDA, 3, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameSaveDialogReturned,this, app.GetStringTable());
+							ui.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME, uiIDA, 3, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameSaveDialogReturned,this, app.GetStringTable());
 						}
 						else
 						{
 							uiIDA[0]=IDS_CONFIRM_CANCEL;
 							uiIDA[1]=IDS_CONFIRM_OK;
 
-							StorageManager.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameDialogReturned,this, app.GetStringTable());
+							ui.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameDialogReturned,this, app.GetStringTable());
 						}
 					}
 				}
@@ -158,7 +158,7 @@ HRESULT CScene_Death::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* pNoti
 					UINT uiIDA[2];
 					uiIDA[0]=IDS_CONFIRM_CANCEL;
 					uiIDA[1]=IDS_CONFIRM_OK;
-					StorageManager.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME_PROGRESS_LOST, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameDialogReturned,this, app.GetStringTable());
+					ui.RequestMessageBox(IDS_EXIT_GAME, IDS_CONFIRM_EXIT_GAME_PROGRESS_LOST, uiIDA, 2, pNotifyPressData->UserIndex,&UIScene_PauseMenu::ExitGameDialogReturned,this, app.GetStringTable());
 				}
 				else
 				{

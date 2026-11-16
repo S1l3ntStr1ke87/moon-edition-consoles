@@ -244,7 +244,7 @@ HRESULT CScene_FullscreenProgress::OnTimer( XUIMessageTimer *pTimer, BOOL& bHand
 
 				UINT uiIDA[1];
 				uiIDA[0]=IDS_CONFIRM_OK;
-				StorageManager.RequestMessageBox( IDS_CONNECTION_FAILED, IDS_CONNECTION_LOST_SERVER, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
+				ui.RequestMessageBox( IDS_CONNECTION_FAILED, IDS_CONNECTION_LOST_SERVER, uiIDA,1,ProfileManager.GetPrimaryPad(),NULL,NULL, app.GetStringTable());
 			
 				app.NavigateToHomeMenu();
 				ui.UpdatePlayerBasePositions();

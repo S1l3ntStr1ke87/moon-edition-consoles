@@ -176,7 +176,7 @@ HRESULT CScene_Main::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* pNotif
 			UINT uiIDA[2];
 			uiIDA[0]=IDS_CONFIRM_OK;
 			uiIDA[1]=IDS_CONFIRM_CANCEL;
-			StorageManager.RequestMessageBox(IDS_MUST_SIGN_IN_TITLE, IDS_MUST_SIGN_IN_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_Main::MustSignInReturned,this, app.GetStringTable());
+			ui.RequestMessageBox(IDS_MUST_SIGN_IN_TITLE, IDS_MUST_SIGN_IN_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_Main::MustSignInReturned,this, app.GetStringTable());
 		}
 	
 		break;
@@ -195,7 +195,7 @@ HRESULT CScene_Main::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* pNotif
 			UINT uiIDA[2];
 			uiIDA[0]=IDS_CONFIRM_OK;
 			uiIDA[1]=IDS_CONFIRM_CANCEL;
-			StorageManager.RequestMessageBox(IDS_MUST_SIGN_IN_TITLE, IDS_MUST_SIGN_IN_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_Main::MustSignInReturned,this, app.GetStringTable());
+			ui.RequestMessageBox(IDS_MUST_SIGN_IN_TITLE, IDS_MUST_SIGN_IN_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_Main::MustSignInReturned,this, app.GetStringTable());
 
 		}
 		break;
@@ -213,7 +213,7 @@ HRESULT CScene_Main::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* pNotif
 			UINT uiIDA[2];
 			uiIDA[0]=IDS_CONFIRM_OK;
 			uiIDA[1]=IDS_CONFIRM_CANCEL;
-			StorageManager.RequestMessageBox(IDS_MUST_SIGN_IN_TITLE, IDS_MUST_SIGN_IN_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_Main::MustSignInReturned,this, app.GetStringTable());
+			ui.RequestMessageBox(IDS_MUST_SIGN_IN_TITLE, IDS_MUST_SIGN_IN_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_Main::MustSignInReturned,this, app.GetStringTable());
 
 		}
 
@@ -235,7 +235,7 @@ HRESULT CScene_Main::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* pNotif
 			UINT uiIDA[2];
 			uiIDA[0]=IDS_CONFIRM_OK;
 			uiIDA[1]=IDS_CONFIRM_CANCEL;
-			StorageManager.RequestMessageBox(IDS_MUST_SIGN_IN_TITLE, IDS_MUST_SIGN_IN_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_Main::MustSignInReturned,this, app.GetStringTable());
+			ui.RequestMessageBox(IDS_MUST_SIGN_IN_TITLE, IDS_MUST_SIGN_IN_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_Main::MustSignInReturned,this, app.GetStringTable());
 
 		}
 		break;
@@ -257,7 +257,7 @@ HRESULT CScene_Main::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* pNotif
 				UINT uiIDA[2];
 				uiIDA[0]=IDS_CONFIRM_OK;
 				uiIDA[1]=IDS_CONFIRM_CANCEL;
-				StorageManager.RequestMessageBox(IDS_MUST_SIGN_IN_TITLE, IDS_MUST_SIGN_IN_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_Main::MustSignInReturned,this, app.GetStringTable());
+				ui.RequestMessageBox(IDS_MUST_SIGN_IN_TITLE, IDS_MUST_SIGN_IN_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_Main::MustSignInReturned,this, app.GetStringTable());
 			}
 		}
 		break;
@@ -267,7 +267,7 @@ HRESULT CScene_Main::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* pNotif
 			UINT uiIDA[2];
 			uiIDA[0]=IDS_CANCEL;
 			uiIDA[1]=IDS_OK;
-			StorageManager.RequestMessageBox(IDS_WARNING_ARCADE_TITLE, IDS_WARNING_ARCADE_TEXT, uiIDA, 2, XUSER_INDEX_ANY,&CScene_Main::ExitGameReturned,this);
+			ui.RequestMessageBox(IDS_WARNING_ARCADE_TITLE, IDS_WARNING_ARCADE_TEXT, uiIDA, 2, XUSER_INDEX_ANY,&CScene_Main::ExitGameReturned,this);
 		}
 		else
 		{
@@ -564,7 +564,7 @@ int CScene_Main::CreateLoad_SignInReturned(void *pParam,bool bContinue, int iPad
 
 		if(ProfileManager.IsGuest(ProfileManager.GetPrimaryPad()))
 		{
-			StorageManager.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
+			ui.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
 		}
 		else
 		{
@@ -584,7 +584,7 @@ int CScene_Main::CreateLoad_SignInReturned(void *pParam,bool bContinue, int iPad
 
 					if(ProfileManager.IsGuest(iPad))
 					{
-						StorageManager.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
+						ui.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
 					}
 					else
 					{
@@ -732,11 +732,11 @@ int CScene_Main::Leaderboards_SignInReturned(void *pParam,bool bContinue,int iPa
 		// guests can't look at leaderboards
 		if(ProfileManager.IsGuest(ProfileManager.GetPrimaryPad()))
 		{
-			StorageManager.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
+			ui.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
 		}
 		else if(!ProfileManager.IsSignedInLive(ProfileManager.GetPrimaryPad()))
 		{
-			StorageManager.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
+			ui.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
 		}
 		else
 		{
@@ -942,7 +942,7 @@ void CScene_Main::RunPlayGame(int iPad)
 		UINT uiIDA[1];
 		uiIDA[0]=IDS_OK;
 
-		StorageManager.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
+		ui.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
 	}
 	else
 	{
@@ -1061,11 +1061,11 @@ void CScene_Main::RunLeaderboards(int iPad)
 	// guests can't look at leaderboards
 	if(ProfileManager.IsGuest(iPad))
 	{
-		StorageManager.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
+		ui.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
 	}
 	else if(!ProfileManager.IsSignedInLive(iPad))
 	{
-		StorageManager.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
+		ui.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
 	}
 	else
 	{	
@@ -1084,7 +1084,7 @@ void CScene_Main::RunAchievements(int iPad)
 	// guests can't look at achievements
 	if(ProfileManager.IsGuest(iPad))
 	{
-		StorageManager.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
+		ui.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
 	}
 	else
 	{
@@ -1097,7 +1097,7 @@ void CScene_Main::RunHelpAndOptions(int iPad)
 	{
 		UINT uiIDA[1];
 		uiIDA[0]=IDS_OK;
-		StorageManager.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
+		ui.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
 	}
 	else
 	{
@@ -1160,7 +1160,7 @@ void CScene_Main::RunUnlockOrDLC(int iPad)
 		{
 			if(ProfileManager.IsGuest(iPad))
 			{
-				StorageManager.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
+				ui.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
 			}
 			else
 			{
@@ -1201,7 +1201,7 @@ void CScene_Main::RunUnlockOrDLC(int iPad)
 		}
 		else
 		{
-			StorageManager.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
+			ui.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
 		}
 	}
 	else
@@ -1209,11 +1209,11 @@ void CScene_Main::RunUnlockOrDLC(int iPad)
 		// guests can't buy the game
 		if(ProfileManager.IsGuest(iPad))
 		{
-			StorageManager.RequestMessageBox(IDS_UNLOCK_TITLE, IDS_UNLOCK_GUEST_TEXT, uiIDA, 1,iPad);
+			ui.RequestMessageBox(IDS_UNLOCK_TITLE, IDS_UNLOCK_GUEST_TEXT, uiIDA, 1,iPad);
 		}
 		else if(!ProfileManager.IsSignedInLive(iPad))
 		{
-			StorageManager.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
+			ui.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
 		}
 		else
 		{

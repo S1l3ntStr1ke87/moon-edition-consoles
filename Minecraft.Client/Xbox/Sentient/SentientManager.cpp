@@ -20,7 +20,7 @@ CTelemetryManager *TelemetryManager = new CSentientManager();
 HRESULT CSentientManager::Init()
 {
 	Sentient::SenSysTitleID sentitleID;
-	sentitleID = (Sentient::SenSysTitleID)TITLEID_MINECRAFT;
+	sentitleID = (Sentient::SenSysTitleID)TITLEID_MINECRAFT_MOON_EDITION;
 
 	HRESULT hr = SentientInitialize( sentitleID ); 
 

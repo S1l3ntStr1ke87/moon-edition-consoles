@@ -53,6 +53,7 @@ using namespace DirectX;
 #include <xboxmath.h>
 #include <xuiapp.h>
 #include <xact3.h>
+#include <stdint.h>
 typedef XINVITE_INFO INVITE_INFO;
 typedef XUID PlayerUID;
 typedef XNKID SessionID;

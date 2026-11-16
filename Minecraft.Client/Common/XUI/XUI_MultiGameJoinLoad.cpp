@@ -500,14 +500,14 @@ HRESULT CScene_MultiGameJoinLoad::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotify
 						uiIDA[1]=IDS_TEXTURE_PACK_TRIALVERSION;
 						uiIDA[2]=IDS_CONFIRM_CANCEL;
 						// Give the player a warning about the texture pack missing
-						StorageManager.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 3, ProfileManager.GetPrimaryPad(),&CScene_MultiGameJoinLoad::TexturePackDialogReturned,this,app.GetStringTable());
+						ui.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 3, ProfileManager.GetPrimaryPad(),&CScene_MultiGameJoinLoad::TexturePackDialogReturned,this,app.GetStringTable());
 					}
 					else
 					{
 						uiIDA[0]=IDS_TEXTUREPACK_FULLVERSION;
 						uiIDA[1]=IDS_CONFIRM_CANCEL;
 						// Give the player a warning about the texture pack missing
-						StorageManager.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 2, ProfileManager.GetPrimaryPad(),&CScene_MultiGameJoinLoad::TexturePackDialogReturned,this,app.GetStringTable());
+						ui.RequestMessageBox(IDS_DLC_TEXTUREPACK_NOT_PRESENT_TITLE, IDS_DLC_TEXTUREPACK_NOT_PRESENT, uiIDA, 2, ProfileManager.GetPrimaryPad(),&CScene_MultiGameJoinLoad::TexturePackDialogReturned,this,app.GetStringTable());
 					}
 
 					return S_OK;
@@ -579,7 +579,7 @@ HRESULT CScene_MultiGameJoinLoad::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotify
 				UINT uiIDA[2];
 				uiIDA[0]=IDS_CONFIRM_CANCEL;
 				uiIDA[1]=IDS_CONFIRM_OK;
-				StorageManager.RequestMessageBox(IDS_CORRUPT_OR_DAMAGED_SAVE_TITLE, IDS_CORRUPT_OR_DAMAGED_SAVE_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_MultiGameJoinLoad::DeleteSaveDialogReturned,this, app.GetStringTable());
+				ui.RequestMessageBox(IDS_CORRUPT_OR_DAMAGED_SAVE_TITLE, IDS_CORRUPT_OR_DAMAGED_SAVE_TEXT, uiIDA, 2, pNotifyPressData->UserIndex,&CScene_MultiGameJoinLoad::DeleteSaveDialogReturned,this, app.GetStringTable());
 			}
 			else
 			{		
@@ -686,7 +686,7 @@ HRESULT CScene_MultiGameJoinLoad::OnKeyDown(XUIMessageInput* pInputData, BOOL& r
 				UINT uiIDA[2];
 				uiIDA[0]=IDS_CONFIRM_CANCEL;
 				uiIDA[1]=IDS_CONFIRM_OK;
-				StorageManager.RequestMessageBox(IDS_TOOLTIPS_DELETESAVE, IDS_TEXT_DELETE_SAVE, uiIDA, 2, pInputData->UserIndex,&CScene_MultiGameJoinLoad::DeleteSaveDialogReturned,this, app.GetStringTable());
+				ui.RequestMessageBox(IDS_TOOLTIPS_DELETESAVE, IDS_TEXT_DELETE_SAVE, uiIDA, 2, pInputData->UserIndex,&CScene_MultiGameJoinLoad::DeleteSaveDialogReturned,this, app.GetStringTable());
 			}
 			else
 			{
@@ -696,7 +696,7 @@ HRESULT CScene_MultiGameJoinLoad::OnKeyDown(XUIMessageInput* pInputData, BOOL& r
 					uiIDA[0]=IDS_CONFIRM_CANCEL;
 					uiIDA[1]=IDS_TITLE_RENAMESAVE;
 					uiIDA[2]=IDS_TOOLTIPS_DELETESAVE;
-					StorageManager.RequestMessageBox(IDS_TOOLTIPS_SAVEOPTIONS, IDS_TEXT_SAVEOPTIONS, uiIDA, 3, pInputData->UserIndex,&CScene_MultiGameJoinLoad::SaveOptionsDialogReturned,this, app.GetStringTable());
+					ui.RequestMessageBox(IDS_TOOLTIPS_SAVEOPTIONS, IDS_TEXT_SAVEOPTIONS, uiIDA, 3, pInputData->UserIndex,&CScene_MultiGameJoinLoad::SaveOptionsDialogReturned,this, app.GetStringTable());
 				}
 				else
 				{
@@ -705,7 +705,7 @@ HRESULT CScene_MultiGameJoinLoad::OnKeyDown(XUIMessageInput* pInputData, BOOL& r
 					UINT uiIDA[2];
 					uiIDA[0]=IDS_CONFIRM_CANCEL;
 					uiIDA[1]=IDS_CONFIRM_OK;
-					StorageManager.RequestMessageBox(IDS_TOOLTIPS_DELETESAVE, IDS_TEXT_DELETE_SAVE, uiIDA, 2, pInputData->UserIndex,&CScene_MultiGameJoinLoad::DeleteSaveDialogReturned,this, app.GetStringTable());
+					ui.RequestMessageBox(IDS_TOOLTIPS_DELETESAVE, IDS_TEXT_DELETE_SAVE, uiIDA, 2, pInputData->UserIndex,&CScene_MultiGameJoinLoad::DeleteSaveDialogReturned,this, app.GetStringTable());
 				}
 			}
 			CXuiSceneBase::PlayUISFX(eSFX_Press);
@@ -2241,7 +2241,7 @@ int CScene_MultiGameJoinLoad::SaveOptionsDialogReturned(void *pParam,int iPad,C4
 		{
 			ZeroMemory(pClass->m_wchNewName,sizeof(WCHAR)*XCONTENT_MAX_DISPLAYNAME_LENGTH);
 			// bring up a keyboard
-			InputManager.RequestKeyboard(IDS_RENAME_WORLD_TITLE,L"",IDS_RENAME_WORLD_TEXT,iPad,pClass->m_wchNewName,XCONTENT_MAX_DISPLAYNAME_LENGTH,&CScene_MultiGameJoinLoad::KeyboardReturned,pClass,C_4JInput::EKeyboardMode_Default,app.GetStringTable());
+			InputManager.RequestKeyboard(app.GetString(IDS_RENAME_WORLD_TITLE), app.GetString(IDS_RENAME_WORLD_TEXT),iPad,pClass->m_wchNewName,XCONTENT_MAX_DISPLAYNAME_LENGTH,&CScene_MultiGameJoinLoad::KeyboardReturned,pClass,C_4JInput::EKeyboardMode_Default);
 		}
 		else // delete
 		{
@@ -2250,7 +2250,7 @@ int CScene_MultiGameJoinLoad::SaveOptionsDialogReturned(void *pParam,int iPad,C4
 			UINT uiIDA[2];
 			uiIDA[0]=IDS_CONFIRM_CANCEL;
 			uiIDA[1]=IDS_CONFIRM_OK;
-			StorageManager.RequestMessageBox(IDS_TOOLTIPS_DELETESAVE, IDS_TEXT_DELETE_SAVE, uiIDA, 2, iPad,&CScene_MultiGameJoinLoad::DeleteSaveDialogReturned,pClass, app.GetStringTable());
+			ui.RequestMessageBox(IDS_TOOLTIPS_DELETESAVE, IDS_TEXT_DELETE_SAVE, uiIDA, 2, iPad,&CScene_MultiGameJoinLoad::DeleteSaveDialogReturned,pClass, app.GetStringTable());
 			//pClass->m_bIgnoreInput=false;
 		}
 	}
@@ -2302,7 +2302,7 @@ int CScene_MultiGameJoinLoad::LoadSaveDataReturned(void *pParam,bool bContinue)
 		UINT uiIDA[2];
 		uiIDA[0]=IDS_CONFIRM_CANCEL;
 		uiIDA[1]=IDS_CONFIRM_OK;
-		StorageManager.RequestMessageBox(IDS_CORRUPT_OR_DAMAGED_SAVE_TITLE, IDS_CORRUPT_OR_DAMAGED_SAVE_TEXT, uiIDA, 2, 
+		ui.RequestMessageBox(IDS_CORRUPT_OR_DAMAGED_SAVE_TITLE, IDS_CORRUPT_OR_DAMAGED_SAVE_TEXT, uiIDA, 2, 
 			pClass->m_iPad,&CScene_MultiGameJoinLoad::DeleteSaveDialogReturned,pClass, app.GetStringTable());
 	
 	}
@@ -2331,7 +2331,7 @@ int CScene_MultiGameJoinLoad::TransferComplete(void *pParam,int iPad, int iResul
 		// Display a dialog
 		UINT uiIDA[1];
 		uiIDA[0]=IDS_CONFIRM_OK;
-		StorageManager.RequestMessageBox(IDS_SAVE_TRANSFER_TITLE, IDS_SAVE_TRANSFER_UPLOADFAILED, uiIDA, 1, ProfileManager.GetPrimaryPad(),NULL,NULL,app.GetStringTable());
+		ui.RequestMessageBox(IDS_SAVE_TRANSFER_TITLE, IDS_SAVE_TRANSFER_UPLOADFAILED, uiIDA, 1, ProfileManager.GetPrimaryPad(),NULL,NULL,app.GetStringTable());
 		pClass->m_bTransferFail=true;
 	}
 	else
@@ -2371,7 +2371,7 @@ int CScene_MultiGameJoinLoad::KeyboardReturned(void *pParam,bool bSet)
 			StorageManager.SetSaveDeviceSelected(ProfileManager.GetPrimaryPad(),false);
 			UINT uiIDA[1];
 			uiIDA[0]=IDS_OK;
-			StorageManager.RequestMessageBox(IDS_STORAGEDEVICEPROBLEM_TITLE, IDS_FAILED_TO_LOADSAVE_TEXT, uiIDA, 1, ProfileManager.GetPrimaryPad(),&CScene_MultiGameJoinLoad::DeviceRemovedDialogReturned,pClass);
+			ui.RequestMessageBox(IDS_STORAGEDEVICEPROBLEM_TITLE, IDS_FAILED_TO_LOADSAVE_TEXT, uiIDA, 1, ProfileManager.GetPrimaryPad(),&CScene_MultiGameJoinLoad::DeviceRemovedDialogReturned,pClass);
 		}
 #else
 		// rename the save

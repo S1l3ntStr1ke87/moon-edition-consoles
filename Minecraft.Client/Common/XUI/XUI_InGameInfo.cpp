@@ -215,7 +215,7 @@ HRESULT CScene_InGameInfo::OnNotifyPressEx(HXUIOBJ hObjPressed, XUINotifyPress* 
 				uiIDA[0]=IDS_CONFIRM_OK;
 				uiIDA[1]=IDS_CONFIRM_CANCEL;
 
-				StorageManager.RequestMessageBox(IDS_UNLOCK_KICK_PLAYER_TITLE, IDS_UNLOCK_KICK_PLAYER, uiIDA, 2, m_iPad,&CScene_InGameInfo::KickPlayerReturned,smallId,app.GetStringTable());
+				ui.RequestMessageBox(IDS_UNLOCK_KICK_PLAYER_TITLE, IDS_UNLOCK_KICK_PLAYER, uiIDA, 2, m_iPad,&CScene_InGameInfo::KickPlayerReturned,smallId,app.GetStringTable());
 			}
 		}
 	}

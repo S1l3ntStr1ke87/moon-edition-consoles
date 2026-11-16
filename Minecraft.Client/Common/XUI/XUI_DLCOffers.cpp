@@ -785,7 +785,7 @@ HRESULT CScene_DLCOffers::OnTimer(XUIMessageTimer *pData,BOOL& rfHandled)
 		StorageManager.ClearDLCOffers();
 		app.ClearAndResetDLCDownloadQueue();
 
-		StorageManager.RequestMessageBox(IDS_CONNECTION_LOST, IDS_CONNECTION_LOST_LIVE, uiIDA, 1, ProfileManager.GetPrimaryPad(),&CConsoleMinecraftApp::EthernetDisconnectReturned,this, app.GetStringTable());
+		ui.RequestMessageBox(IDS_CONNECTION_LOST, IDS_CONNECTION_LOST_LIVE, uiIDA, 1, ProfileManager.GetPrimaryPad(),&CConsoleMinecraftApp::EthernetDisconnectReturned,this, app.GetStringTable());
 	}
 
 	// Is the DLC we're looking for available?

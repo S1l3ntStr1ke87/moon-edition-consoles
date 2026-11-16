@@ -251,13 +251,13 @@ HRESULT CScene_SkinSelect::OnKeyDown(XUIMessageInput* pInputData, BOOL& rfHandle
 						if(ProfileManager.IsGuest(m_iPad))
 						{
 							// can't buy
-							StorageManager.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
+							ui.RequestMessageBox(IDS_PRO_GUESTPROFILE_TITLE, IDS_PRO_GUESTPROFILE_TEXT, uiIDA, 1);
 						}
 						// are we online?
 						else if(!ProfileManager.IsSignedInLive(pInputData->UserIndex))
 						{
 							// need to be signed in to live
-							StorageManager.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
+							ui.RequestMessageBox(IDS_PRO_NOTONLINE_TITLE, IDS_PRO_XBOXLIVE_NOTIFICATION, uiIDA, 1);
 						}
 						else
 						{
@@ -282,7 +282,7 @@ HRESULT CScene_SkinSelect::OnKeyDown(XUIMessageInput* pInputData, BOOL& rfHandle
 							uiIDA[0]=IDS_CONFIRM_OK;
 							uiIDA[1]=IDS_CONFIRM_CANCEL;
 
-							StorageManager.RequestMessageBox(IDS_UNLOCK_DLC_TITLE, IDS_UNLOCK_DLC_SKIN, uiIDA, 2, pInputData->UserIndex,&CScene_SkinSelect::UnlockSkinReturned,this,app.GetStringTable());
+							ui.RequestMessageBox(IDS_UNLOCK_DLC_TITLE, IDS_UNLOCK_DLC_SKIN, uiIDA, 2, pInputData->UserIndex,&CScene_SkinSelect::UnlockSkinReturned,this,app.GetStringTable());
 						}
 					}
 					else

@@ -2,14 +2,14 @@
 //
 // C:\Test\Minecraft.spa.h
 //
-// Auto-generated on Sunday, 08 November 2026 at 04:12:26
+// Auto-generated on Sunday, 15 November 2026 at 21:27:47
 // Xbox LIVE Game Config project version 1.0.173.0
 // SPA Compiler version 1.0.0.0
 //
 ////////////////////////////////////////////////////////////////////
 
-#ifndef __MINECRAFT_SPA_H__
-#define __MINECRAFT_SPA_H__
+#ifndef __MINECRAFT_MOON_EDITION_SPA_H__
+#define __MINECRAFT_MOON_EDITION_SPA_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,7 +19,7 @@ extern "C" {
 // Title info
 //
 
-#define TITLEID_MINECRAFT                           0x584111F7
+#define TITLEID_MINECRAFT_MOON_EDITION              0x584111F7
 
 //
 // Context ids
@@ -659,6 +659,6 @@ extern "C" {
 }
 #endif
 
-#endif // __MINECRAFT_SPA_H__
+#endif // __MINECRAFT_MOON_EDITION_SPA_H__
 
 
