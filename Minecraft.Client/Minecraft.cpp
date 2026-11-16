@@ -1863,7 +1863,7 @@ void Minecraft::run_middle()
 			achievementPopup->render();
 
 			PIXBeginNamedEvent(0,"Sleeping");
-			//Sleep(0);	// 4J - was Thread.yield()
+			Sleep(0);	// 4J - was Thread.yield()
 			PIXEndNamedEvent();
 
 			//        if (Keyboard::isKeyDown(Keyboard::KEY_F7)) Display.update();	// 4J - removed condition

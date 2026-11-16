@@ -453,11 +453,7 @@ void Textures::bindTextureLayers(ResourceLocation *resource)
 
 	for( int i = 0; i < layers; i++ )
 	{
-		int texId = resource->getTexture(i);
-		if( texId != -1 )
-		{
-			RenderManager.TextureBind(loadTexture(texId));
-		}
+		RenderManager.TextureBind(loadTexture(resource->getTexture(i)));
 	}
 }
 

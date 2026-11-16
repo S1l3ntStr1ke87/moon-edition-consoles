@@ -13,7 +13,7 @@ ResourceLocation RocketRenderer::ROCKET_CAKE_FUEL_LOCATION = ResourceLocation(TN
 
 RocketRenderer::RocketRenderer() : EntityRenderer()
 {
-	this->shadowRadius = 0.5f;
+	this->shadowRadius = 1.0f;
 	rocketModel = new RocketModel();
 }
 

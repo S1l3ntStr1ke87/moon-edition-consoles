@@ -49,7 +49,6 @@ private:
 	int launchingCooldown;
 	int ticksUntilNextSound;
 	bool hasPlayedLaunchSound;
-	bool doLerp;
 	bool entityBlockingLaunch;
 	wstring customName;
 	virtual void setPrelaunchTime(int preLaunch);
@@ -82,9 +81,6 @@ public:
 	virtual bool interact(shared_ptr<Player> player);
 	virtual void lerpTo(double x, double y, double z, float yRot, float xRot, int steps);
 	virtual void lerpMotion(double xd, double yd, double zd);
-
-	bool getDoLerp();
-	void setDoLerp(bool doLerp);
 
 public:
 	virtual void remove();

@@ -116,11 +116,7 @@ void Options::init()
     bobView = true;
     anaglyph3d = false;
     advancedOpengl = false;
-#ifdef _WINDOWS64
-    framerateLimit = 0;
-#else
 	framerateLimit = 2;
-#endif
     fancyGraphics = true;
     ambientOcclusion = true;
 	renderClouds = true;

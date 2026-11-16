@@ -2363,17 +2363,12 @@ void ClientConnection::handleEntityLinkPacket(shared_ptr<SetEntityLinkPacket> pa
 			sourceEntity = Minecraft::GetInstance()->localplayers[m_userIndex];
 
 			if (destEntity != NULL && destEntity->instanceof(eTYPE_BOAT)) (dynamic_pointer_cast<Boat>(destEntity))->setDoLerp(false);
-			if (destEntity != NULL && destEntity->instanceof(eTYPE_ROCKET)) (dynamic_pointer_cast<Rocket>(destEntity))->setDoLerp(false);
 
 			displayMountMessage = (sourceEntity->riding == NULL && destEntity != NULL);
 		}
 		else if (destEntity != NULL && destEntity->instanceof(eTYPE_BOAT))
 		{
 			(dynamic_pointer_cast<Boat>(destEntity))->setDoLerp(true);
-		}
-		else if (destEntity != NULL && destEntity->instanceof(eTYPE_ROCKET))
-		{
-			(dynamic_pointer_cast<Rocket>(destEntity))->setDoLerp(true);
 		}
 
 		if (sourceEntity == NULL) return;

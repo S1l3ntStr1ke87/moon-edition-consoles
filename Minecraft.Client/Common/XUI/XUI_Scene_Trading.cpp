@@ -271,6 +271,7 @@ void CXuiSceneTrading::setOfferDescription(vector<HtmlString> *name)
 	}
 
 	bool smallPointer = m_bSplitscreen || (!RenderManager.IsHiDef() && !RenderManager.IsWidescreen());
+	wstring desc = L"<font size=\"" + _toString<int>(smallPointer ? 12 : 14) + L"\">" + HtmlString::Compose(name) + L"</font>";
 
 	XUIRect tempXuiRect, xuiRect;
 	HRESULT hr;
@@ -286,7 +287,7 @@ void CXuiSceneTrading::setOfferDescription(vector<HtmlString> *name)
 	XuiElementSetBounds(m_hOfferInfoTextBkg,xuiRect.right+4.0f+4.0f+4.0f,xuiRect.bottom); // edge graphics are 8 pixels, with 4 for the border, extra 4 for the background is fudge
 	XuiElementSetBounds(m_hOfferInfoText,xuiRect.right+4.0f+4.0f,xuiRect.bottom); // edge graphics are 8 pixels, text is centred
 
-	XuiHtmlSetText(m_hOfferInfoText, HtmlString::Compose(name).c_str() );
+	XuiHtmlSetText(m_hOfferInfoText, desc.c_str() );
 
 	// Check if we need to resize the box
 	XUIContentDims contentDims;

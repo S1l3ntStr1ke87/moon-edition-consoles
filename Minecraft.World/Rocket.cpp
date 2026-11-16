@@ -18,8 +18,6 @@ static uint64_t g_nextRocketId = 1;
 // 4J - added for common ctor code
 void Rocket::_init()
 {
-	doLerp = true;
-
 	this->defineSynchedData();
 	launchingCooldown = 10;
 
@@ -34,7 +32,7 @@ void Rocket::_init()
 
 	this->setRocketId(g_nextRocketId++);
 	customName = L"";
-	this->setSize(0.5f*1.5f, 1.8f*1.5f);
+	this->setSize(1.5f, 1.8f*1.5f);
 
 	entityBlockingLaunch = false;
 }
@@ -104,9 +102,131 @@ void Rocket::tick()
 {
 	Entity::tick();
 	if (getDamage() > 0) setDamage(getDamage() - 1);
-	xo = x;
-	yo = y;
-	zo = z;
+
+	if (getLaunched() && getPrelaunchTime() <= 0) {
+		level->addParticle(eParticleType_flame, x, y + 0.1f, z, 0, 0, 0);
+		level->addParticle(eParticleType_smokeBig, x, y + 0.3f, z, 0, -4.0f, 0);
+		level->addParticle(eParticleType_fierySmoke, x, y + 0.3f, z, 0, -3.0f, 0);
+	}else if (getLaunched() && getPrelaunchTime() > 0) {
+		level->addParticle(eParticleType_smokeMedium, x, y + 0.3f, z, 0.1f, -0.1f, 0.1f);
+		level->addParticle(eParticleType_smokeMedium, x, y + 0.3f, z, 0.1f, -0.1f, -0.1f);
+		level->addParticle(eParticleType_smokeMedium, x, y + 0.3f, z, -0.1f, -0.1f, 0.1f);
+		level->addParticle(eParticleType_smokeMedium, x, y + 0.3f, z, -0.1f, -0.1f, -0.1f);
+	}
+
+	if (ticksUntilNextSound <= 0) {
+		if (getPrelaunchTime() <= 0) {
+			if(!hasPlayedLaunchSound) {
+				level->playSound(x, y, z, eSoundType_RANDOM_EXPLODE, 1.0f, 0.5f);
+				level->playRocketSound(x,y,z,this->getRocketId());
+				hasPlayedLaunchSound = true;
+			}
+			level->moveRocketSound(x,y,z,this->getRocketId());
+		}
+		else {
+			level->playSound(x, y, z, eSoundType_MOB_ROCKET_RUMBLE, 1.0f, 0.5f);
+			ticksUntilNextSound = (20 * 3) - 1;
+		}
+	}
+	else if (getLaunched()) {
+		ticksUntilNextSound--;
+	}
+
+	// Interpolation
+	if (level->isClientSide)
+	{
+		if (lSteps > 0)
+		{
+			double xt = x + (lx - x) / lSteps;
+			double yt = y + (ly - y) / lSteps;
+			double zt = z + (lz - z) / lSteps;
+
+			lSteps--;
+			setPos(xt, yt, zt);
+		}else {
+			move(xd,yd,zd);
+			if (onGround) 
+			{
+				xd *= 0.91f;
+				yd *= 0.91f;
+				zd *= 0.91f;
+			}
+			if(getPrelaunchTime() > 0) {
+				int* id = &(level->dimension->id);
+				if (id != nullptr && *id == 2) {
+					yd -= 0.0133333333;
+				}
+				else {
+					yd -= 0.08;
+				}
+			}
+		}
+
+		return;
+	}
+
+	if (getLaunched() && getPrelaunchTime() <= 0) {
+		if (getFueled()) { 
+			setFueled(false); 
+		}
+		ticksUntilNextSound = 0;
+		if (yd <= 1.0f) {
+			yd += 0.02f;
+		}
+	}
+
+	if (onGround) 
+	{
+		xd *= 0.91f;
+		yd *= 0.91f;
+		zd *= 0.91f;
+	}
+
+	if(getPrelaunchTime() > 0) {
+		int* id = &(level->dimension->id);
+		if (id != nullptr && *id == 2) {
+			yd -= 0.0133333333;
+		}
+		else {
+			yd -= 0.08;
+		}
+	}
+
+	move(xd, yd, zd);
+
+	if (getLaunched() && getPrelaunchTime() > 0) {
+		setPrelaunchTime(getPrelaunchTime() - 1);
+	}
+
+	if (getCooldown() > 0) {
+		setCooldown(getCooldown() - 1);
+	}
+
+	// Server code after this
+	//if (level->isClientSide) return;
+
+	if (getLaunched() && getPrelaunchTime() <= 0) {
+		int minX = (int)floor(bb->x0);
+		int maxX = (int)floor(bb->x1);
+		int minZ = (int)floor(bb->z0);
+		int maxZ = (int)floor(bb->z1);
+		int topY = (int)floor(bb->y1); 
+
+		for (int by = topY; by < topY + 3; by++) {
+			for (int bx = minX; bx <= maxX; bx++) {
+				for (int bz = minZ; bz <= maxZ; bz++) {
+					if (level->getTile(bx, by, bz) != 0) {
+						level->destroyTile(bx, by, bz, true);
+					}
+				}
+			}
+		}
+	}
+
+	if (rider.lock() != NULL)
+	{
+		if (rider.lock()->removed) rider = weak_ptr<Entity>();
+	}
 
 	//Should hopefully fix players getting stuck when a rocket is above another rocket?
 	entityBlockingLaunch = false;
@@ -119,6 +239,7 @@ void Rocket::tick()
 	{
 		shared_ptr<Entity> e = *it;
 		if(e == rider.lock()) continue;
+		if(e->GetType() == eTYPE_ITEMENTITY) continue;
 		if (launchSpace->intersects(e->bb))
 		{
 			entityBlockingLaunch = true;
@@ -147,149 +268,22 @@ void Rocket::tick()
 		setPrelaunchTime(20 * 10);
 		setCooldown(3 * 20);
 	}
-
-	if (!level->isClientSide && getLaunched() && getPrelaunchTime() <= 0) {
-		int minX = (int)floor(bb->x0);
-		int maxX = (int)floor(bb->x1);
-		int minZ = (int)floor(bb->z0);
-		int maxZ = (int)floor(bb->z1);
-		int topY = (int)floor(bb->y1); 
-
-		for (int by = topY; by < topY + 3; by++) {
-			for (int bx = minX; bx <= maxX; bx++) {
-				for (int bz = minZ; bz <= maxZ; bz++) {
-					if (level->getTile(bx, by, bz) != 0) {
-						level->destroyTile(bx, by, bz, true);
-					}
-				}
-			}
-		}
-	}
-
-	if (getLaunched() && getPrelaunchTime() <= 0) {
-		if (getFueled()) { 
-			setFueled(false); 
-		}
-		ticksUntilNextSound = 0;
-		if (yd <= 1.0f) {
-			yd += 0.02f;
-		}
-	}
-
-	if (getLaunched() && getPrelaunchTime() > 0) {
-		setPrelaunchTime(getPrelaunchTime() - 1);
-	}
-
-	if (getLaunched() && getPrelaunchTime() <= 0) {
-		level->addParticle(eParticleType_flame, x, y + 0.1f, z, 0, 0, 0);
-		level->addParticle(eParticleType_smokeBig, x, y + 0.3f, z, 0, -4.0f, 0);
-		level->addParticle(eParticleType_fierySmoke, x, y + 0.3f, z, 0, -3.0f, 0);
-	}else if (getLaunched() && getPrelaunchTime() > 0) {
-		level->addParticle(eParticleType_smokeMedium, x, y + 0.3f, z, 0.1f, -0.1f, 0.1f);
-		level->addParticle(eParticleType_smokeMedium, x, y + 0.3f, z, 0.1f, -0.1f, -0.1f);
-		level->addParticle(eParticleType_smokeMedium, x, y + 0.3f, z, -0.1f, -0.1f, 0.1f);
-		level->addParticle(eParticleType_smokeMedium, x, y + 0.3f, z, -0.1f, -0.1f, -0.1f);
-	}
-
-	// Interpolation
-	if (level->isClientSide && doLerp)
-	{
-		if (lSteps > 0)
-		{
-			double xt = x + (lx - x) / lSteps;
-			double yt = y + (ly - y) / lSteps;
-			double zt = z + (lz - z) / lSteps;
-
-			lSteps--;
-			setPos(xt, yt, zt);
-		}
-		else
-		{
-			move(xd, yd, zd);
-
-			xd *= 0.99f;
-			yd *= 0.95f;
-			zd *= 0.99f;
-		}
-		return;
-	}
-
-	if(getPrelaunchTime() > 0) {
-		if (!level->isClientSide || (level->hasChunkAt((int) x, 0, (int) z) && level->getChunkAt((int) x, (int) z)->loaded))
-		{
-			int* id = &(level->dimension->id);
-			if (id != nullptr && *id == 2) {
-				yd -= 0.0133333333;
-			}
-			else {
-				yd -= 0.08;
-			}
-		}
-		else if (y > 0)
-		{
-			yd = -0.1;
-		}
-		else
-		{
-			yd = 0;
-		}
-	}
-	
-
-	move(xd, yd, zd);
-
-	if (ticksUntilNextSound <= 0) {
-		if (getPrelaunchTime() <= 0) {
-			if(!hasPlayedLaunchSound) {
-				level->playSound(x, y, z, eSoundType_RANDOM_EXPLODE, 1.0f, 0.5f);
-				level->playRocketSound(x,y,z,this->getRocketId());
-				hasPlayedLaunchSound = true;
-			}
-			level->moveRocketSound(x,y,z,this->getRocketId());
-		}
-		else {
-			level->playSound(x, y, z, eSoundType_MOB_ROCKET_RUMBLE, 1.0f, 0.5f);
-			ticksUntilNextSound = (20 * 3) - 1;
-		}
-	}
-	else if (getLaunched()) {
-		ticksUntilNextSound--;
-	}
-
-	if (getCooldown() > 0) {
-		setCooldown(getCooldown() - 1);
-	}
-
-	// Server code after this
-	if (level->isClientSide) return;
-
-	if (rider.lock() != NULL)
-	{
-		if (rider.lock()->removed) rider = weak_ptr<Entity>();
-	}
 }
 
 void Rocket::lerpTo(double x, double y, double z, float yRot, float xRot, int steps)
 {
-	if (doLerp)
+	double xdiff = x - this->x;
+	double ydiff = y - this->y;
+	double zdiff = z - this->z;
+	double diff = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
+
+	if (diff > 1)
 	{
-		lSteps = steps + 5;
+		lSteps = 3;
 	}
 	else
 	{
-		double xdiff = x - this->x;
-		double ydiff = y - this->y;
-		double zdiff = z - this->z;
-		double diff = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
-
-		if (diff > 1)
-		{
-			lSteps = 3;
-		}
-		else
-		{
-			return;
-		}
+		return;
 	}
 
 	lx = x;
@@ -308,16 +302,6 @@ void Rocket::lerpMotion(double xd, double yd, double zd)
 	lxd = this->xd = xd;
 	lyd = this->yd = yd;
 	lzd = this->zd = zd;
-}
-
-bool Rocket::getDoLerp()
-{
-	return doLerp;
-}
-
-void Rocket::setDoLerp(bool doLerp)
-{
-	this->doLerp = doLerp;
 }
 
 void Rocket::positionRider()
