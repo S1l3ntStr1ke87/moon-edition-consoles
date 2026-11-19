@@ -3340,7 +3340,7 @@
     <ClInclude Include="Common\UI\IUIScene_AnvilMenu.h">
       <Filter>Common\Source Files\UI\All Platforms</Filter>
     </ClInclude>
-    <ClInclude Include="Common\UI\IUIScene_OxygenatorMenu.h">
+    <ClInclude Include="Common\UI\IUIScene_AnvilMenu.h">
       <Filter>Common\Source Files\UI\All Platforms</Filter>
     </ClInclude>
     <ClInclude Include="Common\XUI\XUI_Scene_Trading.h">
